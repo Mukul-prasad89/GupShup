@@ -6,12 +6,13 @@ export default function ChatRoom({ room, name, onLeave, isNewRoom = false }) {
   const [messages, setMessages] = useState([])
   const [input, setInput] = useState('')
   const [online, setOnline] = useState(1)
+  const WS_URL = import.meta.env.VITE_WS_URL || 'ws://localhost:8080'
   const wsRef = useRef(null)
   const inputRef = useRef(null)
   const bottomRef = useRef(null)
 
   useEffect(() => {
-    const ws = new WebSocket('ws://localhost:8080')
+    const ws = new WebSocket(WS_URL)
     wsRef.current = ws
 
     ws.onopen = () => {
