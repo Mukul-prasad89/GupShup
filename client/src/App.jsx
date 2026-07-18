@@ -90,13 +90,11 @@ export default function App() {
         transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
         className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-white/[0.03] border-b border-white/[0.06]"
       >
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-6 h-[68px] flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center">
-              <span className="text-black font-bold text-sm">G</span>
-            </div>
-            <span className="font-bold text-lg tracking-tight">GupShup</span>
+            <img src="/logo.png" alt="GupShup" className="h-16 w-auto" />
           </div>
+          <span className="text-[11px] text-white/30 tracking-wide border border-white/10 px-3 py-1 rounded-full">No account needed</span>
         </div>
       </motion.nav>
 
@@ -176,8 +174,6 @@ export default function App() {
               <LogIn className="w-4 h-4" />
               Enter a Room
             </motion.button>
-
-            <span className="text-xs text-white/30 tracking-wide uppercase">No account needed</span>
           </motion.div>
         </motion.div>
 
@@ -247,7 +243,7 @@ export default function App() {
       <footer className="relative z-10 border-t border-white/[0.06] py-8 px-6">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <span className="text-xs text-white/20">GupShup</span>
-          <span className="text-xs text-white/20">Built with care</span>
+          <span className="text-xs text-white/20">Designed &amp; Developed by Mukul Prasad</span>
         </div>
       </footer>
     </div>
