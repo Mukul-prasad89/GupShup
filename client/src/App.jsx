@@ -92,7 +92,7 @@ export default function App() {
       >
         <div className="max-w-6xl mx-auto px-6 h-[68px] flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <img src="/logo.png" alt="GupShup" className="h-16 w-auto" />
+            <span className="font-bold text-4xl tracking-tight bg-gradient-to-r from-white to-white/40 bg-clip-text text-transparent" style={{ fontFamily: 'Montserrat, sans-serif' }}>GupShup</span>
           </div>
           <span className="text-[11px] text-white/30 tracking-wide border border-white/10 px-3 py-1 rounded-full">No account needed</span>
         </div>

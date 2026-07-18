@@ -54,8 +54,12 @@ export default function ChatRoom({ room, name, onLeave, isNewRoom = false }) {
   }, [room, name, isNewRoom])
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
   }, [messages])
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ block: 'end' })
+  }, [])
 
   const handleSend = () => {
     const text = input.trim()
@@ -95,8 +99,10 @@ export default function ChatRoom({ room, name, onLeave, isNewRoom = false }) {
       </header>
 
       {/* messages */}
-      <div className="flex-1 overflow-y-auto px-6 py-6 space-y-3 max-w-3xl w-full mx-auto">
-        {messages.map((m, i) =>
+      <div className="flex-1 overflow-y-auto px-6 py-6 max-w-3xl w-full mx-auto flex flex-col">
+        <div className="flex-1" />
+        <div className="space-y-3">
+          {messages.map((m, i) =>
           m.system ? (
             <motion.div
               key={i}
@@ -130,6 +136,7 @@ export default function ChatRoom({ room, name, onLeave, isNewRoom = false }) {
             </motion.div>
           )
         )}
+        </div>
         <div ref={bottomRef} />
       </div>
 
