@@ -37,6 +37,7 @@ export const api = {
   logout: () => request('/api/auth/logout', { method: 'POST' }),
   me: () => request('/api/auth/me'),
   searchUsers: (q) => request(`/api/users/search?q=${encodeURIComponent(q)}`),
+  allUsers: (limit = 50) => request(`/api/users?limit=${limit}`),
   getUser: (username) => request(`/api/users/${encodeURIComponent(username)}`),
   updateMe: (payload) => request('/api/users/me', { method: 'PATCH', body: payload }),
   sendRequest: (userId) => request(`/api/follow-requests/${userId}`, { method: 'POST' }),

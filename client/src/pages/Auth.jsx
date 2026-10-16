@@ -120,7 +120,7 @@ export function Register() {
                 onClick={() => setForm({ ...form, gender: g.value })}
                 className={`flex flex-col items-center gap-2 p-4 rounded-2xl border transition-all ${form.gender === g.value ? g.ring : 'border-white/10 hover:border-white/25'}`}
               >
-                <img src={g.value === 'FEMALE' ? '/avatars/female.svg' : '/avatars/male.svg'} alt={g.label} className="w-14 h-14 rounded-full object-cover border border-white/10 bg-white/5" />
+                <span className="inline-block p-[2px] rounded-full bg-gradient-to-br from-violet-500 via-fuchsia-400 to-amber-300"><img src={g.value === 'FEMALE' ? '/avatars/male.svg' : '/avatars/female.svg'} alt={g.label} className="w-14 h-14 rounded-full object-cover bg-white/5 block" /></span>
                 <span className="text-xs font-semibold">{g.label}</span>
               </button>
             ))}

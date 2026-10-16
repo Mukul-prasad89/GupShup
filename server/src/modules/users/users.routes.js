@@ -7,6 +7,21 @@ import { publicUser } from '../../utils/sanitize.js';
 export const usersRouter = Router();
 usersRouter.use(requireAuth);
 
+// GET /api/users — all registered profiles except self (for discovery lists)
+usersRouter.get('/', async (req, res, next) => {
+  try {
+    const take = Math.min(Math.max(Number(req.query.limit ?? 50), 1), 100);
+    const users = await prisma.user.findMany({
+      where: { NOT: { id: req.user.id } },
+      take,
+      orderBy: { createdAt: 'desc' },
+    });
+    res.json({ users: users.map(publicUser) });
+  } catch (err) {
+    next(err);
+  }
+});
+
 usersRouter.get('/search', async (req, res, next) => {
   try {
     const q = String(req.query.q ?? '').trim().slice(0, 60);
