@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { MessageSquarePlus, Sparkles, ArrowRight, Loader2, LogIn, Zap, ShieldCheck, Users, Menu, X } from 'lucide-react'
+import { MessageSquarePlus, Sparkles, ArrowRight, Loader2, LogIn, Zap, ShieldCheck, Users } from 'lucide-react'
 import Scene3D from '../components/Scene3D'
 import ChatRoom from '../components/ChatRoom'
 import JoinModal from '../components/JoinModal'
@@ -76,12 +76,6 @@ function DemoChat() {
     </div>
   );
 }
-
-const STATS = [
-  { value: '<100ms', label: 'median delivery' },
-  { value: '3 ways', label: 'rooms · strangers · DMs' },
-  { value: '0', label: 'signups for guests' },
-];
 
 const STRANGER_SCRIPT = [
   { from: 'stranger', text: 'heyy! where are you from? 🎭' },
@@ -229,7 +223,6 @@ export default function App() {
   const [creating, setCreating] = useState(false)
   const [modalMode, setModalMode] = useState(null)
   const [isNewRoom, setIsNewRoom] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
 
   const handleCreate = ({ name }) => {
     setCreating(true)
@@ -283,27 +276,13 @@ export default function App() {
           </a>
           <div className="hidden md:flex items-center gap-2 text-[13px] font-medium">
             <a href="/login" className="px-5 py-2 rounded-full border border-violet-400/50 font-bold text-violet-200 hover:bg-violet-500 hover:border-violet-500 hover:text-white transition-all">Login</a>
-            <a href="/register" className="ml-2 px-5 py-2 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white font-semibold shadow-[0_0_24px_rgba(139,92,246,0.35)] hover:shadow-[0_0_32px_rgba(139,92,246,0.55)] hover:scale-[1.03] transition-all">Sign up</a>
+            <a href="/register" className="px-5 py-2 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white font-semibold shadow-[0_0_24px_rgba(139,92,246,0.35)] hover:shadow-[0_0_32px_rgba(139,92,246,0.55)] hover:scale-[1.03] transition-all">Sign up</a>
           </div>
-          <button onClick={() => setMenuOpen((o) => !o)} aria-label="Menu" className="md:hidden p-2 rounded-lg hover:bg-white/10">
-            {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          <div className="md:hidden flex items-center gap-2">
+            <a href="/login" className="px-4 py-1.5 rounded-full border border-violet-400/50 text-[13px] font-bold text-violet-200">Login</a>
+            <a href="/register" className="px-4 py-1.5 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-[13px] font-semibold">Sign up</a>
+          </div>
         </div>
-        <AnimatePresence>
-          {menuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="md:hidden overflow-hidden border-t border-white/[0.06]"
-            >
-              <div className="px-6 py-4 flex flex-col gap-1 text-sm">
-                <a href="/login" className="px-2 py-2.5 rounded-lg text-white/70 hover:text-white hover:bg-white/[0.06]">Login</a>
-                <a href="/register" className="mt-2 text-center px-4 py-2.5 rounded-full bg-white text-black font-semibold">Sign up</a>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </motion.nav>
 
       {/* --- HERO --- */}
@@ -348,74 +327,56 @@ export default function App() {
           </motion.p>
 
           <motion.div variants={fadeUp} custom={3} className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-              <motion.button
+            <motion.a
+              href="/register"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
-              onMouseEnter={() => setHovered('create')}
+              onMouseEnter={() => setHovered('start')}
               onMouseLeave={() => setHovered(null)}
-              onClick={() => setModalMode('create')}
-              disabled={creating}
-              className="group relative inline-flex items-center gap-2 px-7 py-3 rounded-2xl bg-white text-black font-semibold text-[13px] transition-all duration-300 hover:shadow-[0_0_40px_rgba(255,255,255,0.15)] cursor-pointer disabled:opacity-60"
+              className="group relative inline-flex items-center gap-2 px-7 py-3 rounded-2xl bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white font-semibold text-[13px] transition-all duration-300 shadow-[0_0_32px_rgba(139,92,246,0.35)] hover:shadow-[0_0_44px_rgba(139,92,246,0.55)] cursor-pointer"
             >
-              {creating ? (
-                <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  Creating...
-                </>
-              ) : (
-                <>
-                  <MessageSquarePlus className="w-4.5 h-4.5" />
-                  Create Chatroom
-                  <ArrowRight
-                    className={`w-4 h-4 transition-transform duration-300 ${hovered === 'create' ? 'translate-x-1' : ''}`}
-                  />
-                </>
-              )}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-white/0 via-white/10 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-            </motion.button>
-
+              <MessageSquarePlus className="w-4 h-4" />
+              Start Chat
+              <ArrowRight
+                className={`w-4 h-4 transition-transform duration-300 ${hovered === 'start' ? 'translate-x-1' : ''}`}
+              />
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-white/0 via-white/15 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+            </motion.a>
+          </motion.div>
+          <motion.div variants={fadeUp} custom={5} className="mt-8">
+            <div className="flex items-center gap-3 max-w-md mb-4">
+              <span className="flex-1 h-px bg-gradient-to-r from-transparent via-white/20 to-white/20" />
+              <span className="text-[11px] uppercase tracking-widest text-white/30">or</span>
+              <span className="flex-1 h-px bg-gradient-to-l from-transparent via-white/20 to-white/20" />
+            </div>
+            <p className="text-sm text-white/45 mb-3 text-center lg:text-left">
+              Want to create <span className="text-violet-300 font-semibold">chat rooms</span>? Here is for you 👇
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3">
             <motion.button
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
-              onMouseEnter={() => setHovered('join')}
-              onMouseLeave={() => setHovered(null)}
+              onClick={() => setModalMode('create')}
+              disabled={creating}
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-2xl bg-white text-black font-semibold text-[13px] hover:shadow-[0_0_32px_rgba(255,255,255,0.15)] transition-all cursor-pointer disabled:opacity-60"
+            >
+              {creating ? (
+                <><Loader2 className="w-4 h-4 animate-spin" /> Creating…</>
+              ) : (
+                <><MessageSquarePlus className="w-4 h-4" /> Create a Chatroom</>
+              )}
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
               onClick={() => setModalMode('join')}
-              className="group relative inline-flex items-center gap-2 px-7 py-3 rounded-2xl border border-white/15 bg-white/[0.04] text-white font-semibold text-[13px] transition-all duration-300 hover:bg-white/[0.08] cursor-pointer"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-2xl border border-white/15 bg-white/[0.04] text-white font-semibold text-[13px] hover:bg-white/[0.08] transition-all cursor-pointer"
             >
               <LogIn className="w-4 h-4" />
               Enter a Room
             </motion.button>
+            </div>
           </motion.div>
-
-          <motion.div variants={fadeUp} custom={4} className="flex items-center justify-center lg:justify-start gap-6 mt-6">
-            {STATS.map((s) => (
-              <div key={s.label} className="text-center lg:text-left">
-                <p className="text-lg font-bold tracking-tight">{s.value}</p>
-                <p className="text-[11px] text-white/35 mt-0.5">{s.label}</p>
-              </div>
-            ))}
-          </motion.div>
-          <motion.a
-            variants={fadeUp}
-            custom={5}
-            href="/register"
-            className="group relative flex items-center gap-3 mt-6 max-w-sm rounded-2xl p-[1px] bg-gradient-to-r from-violet-500/60 via-fuchsia-500/40 to-violet-500/60 overflow-hidden"
-          >
-            <span className="flex items-center gap-3 w-full rounded-2xl bg-[#121214]/95 px-4 py-3 backdrop-blur transition-colors group-hover:bg-[#17171c]">
-              <span className="relative flex w-9 h-9 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-600 shrink-0">
-                <Users className="w-4 h-4 text-white" />
-                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-[#121214] animate-pulse" />
-              </span>
-              <span className="text-left">
-                <span className="block text-[13px] font-bold text-white">Want chats that stay? 💬</span>
-                <span className="block text-[11px] text-white/50 mt-0.5">Free account · profiles · follows · DM history</span>
-              </span>
-              <span className="ml-auto inline-flex items-center gap-1 text-[11px] font-bold text-white bg-white/10 group-hover:bg-white group-hover:text-black transition-all px-3 py-1.5 rounded-full shrink-0">
-                Sign up <ArrowRight className="w-3 h-3" />
-              </span>
-            </span>
-            <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 pointer-events-none" />
-          </motion.a>
         </motion.div>
 
         <motion.div
